@@ -75,25 +75,18 @@ On a weaker PC, open **Graphics** in the launcher: use **1x** internal resolutio
 
 ## Linux (beta)
 
-ReStreet runs on Linux through Proton, with a native Linux launcher. Tested on CachyOS with an AMD GPU: online play works; launcher rooms and friend invites are still being tested, and the Steam Deck has not been tested yet.
+ReStreet runs on Linux through Proton, with a native Linux launcher that also installs the game. No terminal and nothing to install with a package manager, so it also suits SteamOS. Tested on CachyOS with an AMD GPU: online play works; launcher rooms and friend invites are still being tested, and the Steam Deck has not been tested yet.
 
-1. Install `umu-launcher`, `webkit2gtk-4.1` and a Proton build (Proton-CachyOS or GE-Proton recommended). On Arch / CachyOS:
+**You need** Steam with any Proton installed (in Steam: Library → Tools → **Proton Experimental**). Proton-CachyOS, GE-Proton or `umu-launcher` also work if you have them.
 
-   ```bash
-   sudo pacman -S umu-launcher webkit2gtk-4.1
-   ```
+1. Download **ReStreet-Linux-launcher.tar.gz** from the [latest release](https://github.com/samuelit0davila/fifa-street-pc-port/releases/latest) and extract it anywhere (right-click → Extract, or `tar -xzf ReStreet-Linux-launcher.tar.gz`).
+2. Open the `Linux` folder and run **restreet-launcher**.
+3. The launcher sees that ReStreet is not installed yet and opens the setup: choose your FIFA Street ISO (it finds one in Downloads by itself), the install folder, your online name and server, then press **Install ReStreet**. It downloads the setup from the release, checks it and installs the game (5 to 15 minutes).
+4. Press **Play**. ReStreet is now in your applications menu and on your desktop.
 
-2. Install ReStreet from your ISO. The setup's normal window does not work under Proton, so use its install mode instead (your ISO, the folder to install to, your online name):
+On the Steam Deck, do this in Desktop Mode. To play from Game Mode, add **ReStreet** to Steam with "Add a Non-Steam Game" (pick the `restreet-launcher` in your ReStreet folder's `Linux` folder, and do not set a Proton version for it: it is a Linux program).
 
-   ```bash
-   umu-run ReStreet-2.0.7-Setup.exe --iso-install-test 'Z:\home\you\FIFASTREET.iso' 'Z:\home\you\Games\ReStreet' YourName
-   ```
-
-   `Z:` is your Linux `/`, so `Z:\home\you\...` is `/home/you/...`.
-3. Download **ReStreet-Linux-launcher.tar.gz** from the [latest release](https://github.com/samuelit0davila/fifa-street-pc-port/releases/latest) and extract it into your ReStreet folder, next to `Binaries` and `Game`.
-4. Run `Linux/restreet-launcher` and press **PLAY**. Press **Shortcut** in the launcher to add ReStreet to your applications menu.
-
-On Linux the launcher cannot update itself yet: to update, download the new launcher and run the new setup.
+The launcher cannot update itself on Linux yet; each new release says how to update.
 
 ## Online play
 

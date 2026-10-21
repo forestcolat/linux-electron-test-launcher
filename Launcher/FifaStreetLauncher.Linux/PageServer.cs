@@ -6,6 +6,12 @@ using System.Text;
 
 namespace FifaStreetLauncher.Linux;
 
+// What a page talks to: the launcher, or the first-run installer.
+internal interface IPageHost
+{
+    void OnMessage(string json);
+}
+
 // The page's link to the launcher (same protocol as BrowserUi.cs in the Windows launcher): files of ui/, POST msg and
 // a long-polled GET events, served on 127.0.0.1 only, under a random secret path.
 internal sealed class PageServer : IDisposable
@@ -13,7 +19,7 @@ internal sealed class PageServer : IDisposable
     private readonly TcpListener listener = new(IPAddress.Loopback, 0);
     private readonly string ui;
     private readonly string secret = Convert.ToHexString(RandomNumberGenerator.GetBytes(16)).ToLowerInvariant();
-    private readonly Launcher launcher;
+    private readonly IPageHost host;
     private readonly ConcurrentQueue<string> outbox = new();
     private readonly SemaphoreSlim signal = new(0);
     private volatile bool running = true;
@@ -21,12 +27,12 @@ internal sealed class PageServer : IDisposable
     public DateTime LastSeen { get; private set; } = DateTime.UtcNow;
     public string Url { get; }
 
-    public PageServer(string ui, Launcher launcher)
+    public PageServer(string ui, IPageHost host, string page = "launcher.html")
     {
         this.ui = ui;
-        this.launcher = launcher;
+        this.host = host;
         listener.Start();
-        Url = $"http://127.0.0.1:{((IPEndPoint)listener.LocalEndpoint).Port}/{secret}/launcher.html";
+        Url = $"http://127.0.0.1:{((IPEndPoint)listener.LocalEndpoint).Port}/{secret}/{page}";
         _ = Task.Run(AcceptClients);
     }
 
@@ -60,7 +66,7 @@ internal sealed class PageServer : IDisposable
             LastSeen = DateTime.UtcNow;
             if (method == "POST" && rest == "msg")
             {
-                launcher.OnMessage(Encoding.UTF8.GetString(body));
+                host.OnMessage(Encoding.UTF8.GetString(body));
                 await Respond(stream, 204, "text/plain", Array.Empty<byte>());
             }
             else if (method == "GET" && rest == "events")

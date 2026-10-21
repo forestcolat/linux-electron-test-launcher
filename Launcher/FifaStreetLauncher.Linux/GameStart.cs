@@ -183,6 +183,7 @@ internal sealed partial class Launcher
         {
             File.WriteAllText(Path.Combine(logsDir, "launcher_settings.txt"),
                 $"Launcher=Linux{Environment.NewLine}Proton={protons.FirstOrDefault() ?? "UMU-Proton (default)"}{Environment.NewLine}" +
+                $"Runner={(Proton.UmuRun() != null ? "umu-run" : "Proton direct")}{Environment.NewLine}" +
                 $"Prefix={prefix}{Environment.NewLine}Resolution={width}x{height}{Environment.NewLine}" +
                 $"InternalResolution={1280 * internalScale}x{720 * internalScale} ({internalScale}x){Environment.NewLine}" +
                 $"MonitorRefreshRate={refresh}{Environment.NewLine}GraphicsApi={graphicsApi}{Environment.NewLine}" +

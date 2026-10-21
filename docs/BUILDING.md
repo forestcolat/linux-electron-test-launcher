@@ -171,28 +171,29 @@ It activates the selected pair beside `fifastreet.exe` before starting the game.
 
 ## Build the Linux launcher
 
-`Launcher/FifaStreetLauncher.Linux` is a native Linux launcher for an existing ReStreet install. It shows the same
-`ui/launcher.html` in a WebKitGTK window (Photino.NET) and starts the Windows game through Proton with `umu-run`,
-passing the same `REX_*` and online `FIFASTREET_*` variables as the Windows launcher. It can be built on Linux or
-Windows with the .NET 8 SDK:
+`Launcher/FifaStreetLauncher.Linux` is a native Linux launcher. It shows the same `ui/launcher.html` in a WebKitGTK
+window (Photino.NET) and starts the Windows game through Proton, passing the same `REX_*` and online `FIFASTREET_*`
+variables as the Windows launcher. Without a ReStreet folder beside it, it first shows `ui/linux-setup.html`: it
+downloads the latest release's setup (checked against its `.sha256`), runs the setup's headless
+`--iso-install-test <iso> <folder> <name>` install through Proton, copies itself into `<ReStreet>/Linux` and adds
+the menu and desktop entries. It can be built on Linux or Windows with the .NET 8 SDK:
 
     dotnet publish Launcher/FifaStreetLauncher.Linux/FifaStreetLauncher.Linux.csproj -c Release --self-contained -o dist/Linux
 
-Copy `dist/Linux` into the ReStreet folder (beside `Binaries` and `Game`) and run `Linux/restreet-launcher`, or pass
-`--root <ReStreet folder>`. `--play` starts the game without a window. The **Shortcut** button adds "ReStreet
-Launcher" and "ReStreet (direct play)" to the desktop menu.
+Run `dist/Linux/restreet-launcher`, or pass `--root <ReStreet folder>` for an existing install. `--play` starts the
+game without a window.
 
-Runtime needs: `umu-launcher`, `webkit2gtk-4.1` and a Proton build. The launcher prefers Proton-CachyOS, then
-GE-Proton, then Valve's; with none installed `umu-run` downloads UMU-Proton. The Wine prefix is
-`~/.local/share/restreet/prefix` (or `prefix-restreet` beside the install, if present). Settings are kept in
-`linux-settings.json`; `controls.json` and `fifastreet.toml` are shared with the Windows launcher and the game.
+Proton: `umu-run` when installed; otherwise the Proton that Steam already has (Steam libraries and
+`compatibilitytools.d`), run through Steam's `SteamLinuxRuntime_sniper` when present. Nothing has to be installed
+system-wide, which SteamOS's read-only system needs. Without WebKitGTK the page opens in the system browser.
+The Wine prefix is `~/.local/share/restreet/prefix` (or `prefix-restreet` beside the install, if present). Settings
+are kept in `linux-settings.json`; `controls.json` and `fifastreet.toml` are shared with the Windows launcher and
+the game.
+
+For testing: `RESTREET_NO_UMU=1` ignores `umu-run`, and `RESTREET_BROWSER_UI=1` uses the browser instead of the
+window (the page address is printed).
 
 Not on Linux yet: the self-updater, stadium pictures and performance reports.
-
-Installing on Linux without Windows: the setup's page needs WebView2, which Proton lacks, so run its headless
-install instead (ISO, target folder, online name):
-
-    umu-run ReStreet-<version>-Setup.exe --iso-install-test 'Z:\path\to\FIFASTREET.iso' 'Z:\path\to\ReStreet' YourName
 
 ## Package the installer
 
