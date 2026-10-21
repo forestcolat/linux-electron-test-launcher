@@ -1,5 +1,16 @@
 ﻿# ReStreet - FIFA Street 2012 Recompiled: changelog
 
+## v2.0.7 Online Beta
+
+Keyboard fixes, and ReStreet on Linux. Offered automatically by the launcher.
+
+### Fixed
+- **Keyboard: A and B did nothing** (stuck on the "INFORMATION — autosave" pop-up). Buttons with two keys in the launcher's Controls page (A = J / Enter, B = K / Backspace, or the mouse buttons in the keyboard + mouse layout) were ignored by the game since 2.0. Both keys now work.
+- **Keyboard: skill-move keys** (right stick, the arrow keys in the keyboard-only layout) now work, and turning off "Mouse for skill moves" really leaves the mouse free.
+
+### New
+- **Linux (beta):** a native Linux launcher that runs the game through Proton (**ReStreet-Linux-launcher.tar.gz** on the release). See "Linux (beta)" in the README.
+
 ## v2.0.6 Online Beta
 
 Crash and save fixes. Offered automatically by the launcher.
