@@ -75,7 +75,7 @@ On a weaker PC, open **Graphics** in the launcher: use **1x** internal resolutio
 
 ## Linux (beta)
 
-ReStreet runs on Linux through Proton, with a native Linux launcher. Tested on CachyOS with an AMD GPU; online play on Linux is not fully tested yet.
+ReStreet runs on Linux through Proton, with a native Linux launcher. Tested on CachyOS with an AMD GPU: online play works; launcher rooms and friend invites are still being tested, and the Steam Deck has not been tested yet.
 
 1. Install `umu-launcher`, `webkit2gtk-4.1` and a Proton build (Proton-CachyOS or GE-Proton recommended). On Arch / CachyOS:
 
