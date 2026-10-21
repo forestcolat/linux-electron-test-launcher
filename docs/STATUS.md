@@ -1,6 +1,6 @@
 # Validation and known limitations
 
-## ReStreet 2.0.6 (current)
+## ReStreet 2.0.7 (current)
 
 Tested by the developer on Windows 11 (AMD Radeon RX 9070 XT, Ryzen 5 7600), with two game copies on the live-like server path (about 180 ms ping):
 
@@ -19,7 +19,20 @@ Tested by the developer on Windows 11 (AMD Radeon RX 9070 XT, Ryzen 5 7600), wit
 | Auto-update 2.0.5 to 2.0.6 keeps online name, server and key | Passed (2.0.6) |
 | Update from 1.5.7 / 2.0 / 2.0.1 / 2.0.2 keeps region, online name, settings and World Tour saves | Passed |
 
-**Not yet tested on 2.0:** two separate real PCs by the team, NVIDIA and Intel graphics, Linux with Wine / Proton.
+### Linux (beta, 2.0.7)
+
+Tested by the developer on CachyOS (AMD, RADV), with the native Linux launcher:
+
+| Check | Result |
+|---|---|
+| Install from the ISO in the Linux launcher (setup downloaded and checked, headless install through Proton) | Passed |
+| PLAY through umu-run (Proton-CachyOS) | Passed |
+| PLAY through Proton directly, without umu-launcher | Passed |
+| Online: the game connects to the servers | Passed |
+
+**Not yet tested on Linux:** the Steam Deck / SteamOS, Valve's Proton from a Steam library and the Steam Linux Runtime, NVIDIA and Intel graphics, launcher rooms and friend invites, and a system without WebKitGTK (the page then opens in the browser).
+
+**Not yet tested on 2.0:** two separate real PCs by the team, NVIDIA and Intel graphics on Windows.
 
 **Known issues:** the phone messages in a new World Tour can look wrong; plus the limits listed in the [README](../README.md#known-limits-20).
 
