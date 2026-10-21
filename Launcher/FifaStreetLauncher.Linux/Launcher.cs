@@ -10,7 +10,7 @@ namespace FifaStreetLauncher.Linux;
 // The launcher state the page shows and changes: the same fields, toggles and commands as the Windows launcher
 // (GlassUi.cs), kept as plain lists instead of WinForms controls. Settings live in linux-settings.json; the graphics
 // options also go to fifastreet.toml, which the in-game menu (F5 / L3+R3) shares.
-internal sealed partial class Launcher
+internal sealed partial class Launcher : IPageHost
 {
     private sealed class Field
     {
@@ -309,7 +309,7 @@ internal sealed partial class Launcher
 
     private string ReadyText()
     {
-        if (Proton.UmuRun() == null) return "umu-run is missing: install umu-launcher to play";
+        if (Proton.Missing(protons) is { } missing) return missing;
         var online = LoadOnlineConfig();
         if (online != null && !toggles["onlineMode"].On) return "Ready to play offline (online is off)";
         return online == null ? "Online is not set up. Run the online patch again" : "Ready to play online as " + online.Value.Name;
@@ -471,7 +471,7 @@ internal sealed partial class Launcher
                     }).ToArray(),
                 };
             }
-            string proton = protons.Count > 0 ? Path.GetFileName(protons[0]) : "UMU-Proton";
+            string proton = Proton.Describe(protons);
             json = JsonSerializer.Serialize(new
             {
                 fields = fieldState, toggles = toggleState, online = onlineState, controls = ControlsState(),
@@ -497,21 +497,13 @@ internal sealed partial class Launcher
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception) { Debug.WriteLine(ex.Message); }
     }
 
-    // The desktop menu entry, as the Windows launcher's "direct play" shortcut: starts the game with the saved settings.
+    // The desktop menu entries and icon, as the Windows launcher's "direct play" shortcut.
     private void CreateDesktopEntry()
     {
         try
         {
-            string self = Environment.ProcessPath!;
-            string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".local/share/applications");
-            Directory.CreateDirectory(dir);
-            string icon = Path.Combine(AppContext.BaseDirectory, "restreet.jpg");
-            string Entry(string name, string args) =>
-                $"[Desktop Entry]\nType=Application\nName={name}\nExec=\"{self}\" --root \"{root}\"{args}\nPath={AppContext.BaseDirectory}\n" +
-                $"Icon={icon}\nCategories=Game;\nComment=FIFA Street (2012) recompiled\n";
-            File.WriteAllText(Path.Combine(dir, "restreet-launcher.desktop"), Entry("ReStreet Launcher", ""));
-            File.WriteAllText(Path.Combine(dir, "restreet-play.desktop"), Entry("ReStreet (direct play)", " --play"));
-            SetStatus("Menu entries created: ReStreet Launcher and ReStreet (direct play)", true);
+            DesktopEntries.Create(Environment.ProcessPath!, root);
+            SetStatus("Added ReStreet and ReStreet (direct play) to the applications menu", true);
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
@@ -519,10 +511,8 @@ internal sealed partial class Launcher
         }
     }
 
-    public void WaitWhileBrowserConnected(PageServer server)
-    {
-        while (!closing && (gameRunning || DateTime.UtcNow - server.LastSeen < TimeSpan.FromSeconds(90))) Thread.Sleep(1000);
-    }
+    // Browser mode: the launcher stays while the page polls or the game runs.
+    public bool KeepBrowserOpen(PageServer server) => !closing && (gameRunning || DateTime.UtcNow - server.LastSeen < TimeSpan.FromSeconds(90));
 
     public void Shutdown()
     {
