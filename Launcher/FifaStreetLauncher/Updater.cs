@@ -37,6 +37,8 @@ public partial class LauncherForm
     private async Task CheckForUpdateAsync()
     {
         if (LoadOnlineConfig() == null) return;  // offline installs update with the full installer
+        // RESTREET_NO_UPDATE=1: never offer an update (a self-built launcher would be replaced by the official one).
+        if (Environment.GetEnvironmentVariable("RESTREET_NO_UPDATE") == "1") return;
         try
         {
             using var doc = JsonDocument.Parse(await UpdateHttp.GetStringAsync(ReleasesApi));
