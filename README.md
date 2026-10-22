@@ -28,7 +28,7 @@ ReStreet is a Windows PC version of FIFA Street (2012), made by recompiling the 
 
 You need your own copy of the game: an **Xbox 360 ISO of FIFA Street (2012)**. The ISO and the game files are not included.
 
-**Current version: 2.0.7 Online Beta.** Trailer and screenshots on the [website](https://samuelit0davila.github.io/fifa-street-pc-port/).
+**Current version: 2.0.8 Online Beta.** Trailer and screenshots on the [website](https://samuelit0davila.github.io/fifa-street-pc-port/).
 
 ## What's new in 2.0
 
@@ -39,7 +39,7 @@ You need your own copy of the game: an **Xbox 360 ISO of FIFA Street (2012)**. T
 - **Brazilian Portuguese** translation by Eze_.
 - **Automatic updates:** the launcher finds new versions, checks them and installs them, keeping your name, server, settings and World Tour progress.
 
-**Latest fixes (2.0.4 – 2.0.7):** keyboard controls (A / B and skill-move keys), online sign-in, crashes entering or during a match, ultrawide screens, older CPUs without AVX2, World Tour saves (OneDrive, "corrupt save", progress from 2.0.0 / 2.0.1), My Squad faces, Portuguese (PT-BR) in game, and achievements on Windows user names with accents.
+**Latest fixes (2.0.4 – 2.0.8):** player names on shirts, Mac (CrossOver) audio, online sign-in with USB-C / HDMI network adapters, the new Re/STREET icon, keyboard controls (A / B and skill-move keys), online sign-in, crashes entering or during a match, ultrawide screens, older CPUs without AVX2, World Tour saves (OneDrive, "corrupt save", progress from 2.0.0 / 2.0.1), My Squad faces, Portuguese (PT-BR) in game, and achievements on Windows user names with accents.
 
 Full history: [CHANGELOG.md](CHANGELOG.md).
 
@@ -47,7 +47,7 @@ Full history: [CHANGELOG.md](CHANGELOG.md).
 
 **New install**
 
-1. Download **ReStreet-2.0.7-Setup.exe** from the [latest release](https://github.com/samuelit0davila/fifa-street-pc-port/releases/latest). Optionally check it against the `.sha256` file next to it.
+1. Download **ReStreet-2.0.8-Setup.exe** from the [latest release](https://github.com/samuelit0davila/fifa-street-pc-port/releases/latest). Optionally check it against the `.sha256` file next to it.
 2. Run it, choose your FIFA Street ISO, a folder, your online name and your server (Europe or South America).
 3. Open the launcher from the desktop shortcut and press **PLAY**.
 
