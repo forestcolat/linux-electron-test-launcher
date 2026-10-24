@@ -40,8 +40,12 @@ Make sure the folder you are pasting has ReStreetViewer.exe inside.
 
 **Enable the old UI**. This implies the download stops if is not completed.
 
-```RESTREET_CLASSIC_UI=1```
+```
+RESTREET_CLASSIC_UI=1
+```
 
 **Stop download only**. This will open the default web browser from your system, using the buggy web launcher described before.
 
-```RESTREET_NO_VIEWER_DOWNLOAD=1```
+```
+RESTREET_NO_VIEWER_DOWNLOAD=1
+```
