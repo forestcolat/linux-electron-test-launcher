@@ -12,6 +12,8 @@ ReStreet uses, so to speak, a web app for its UI instead of a only a traditional
 
 The fix? instead of building a new launcher, just modify the existing launcher and replace the actual web wrapper with electron. This way, the user on Proton/Wine will see a normal window instead of the old web browser menu.
 
+<div align="left">
+  
 ## How it works
 
 The new launcher uses a compiled web viewer using electron framework. A mini browser with only one window, so to speak. This launcher size is around 250MB, so it is not included in the original game setup to reduce installation size. Windows users should not see any changes at all, as the launcher relies on webview2, a dependency that is normally available on Windows. Proton/Wine users however, they should download an aditional 250MB for opening the new launcher. This isn't mandatory; there are commands users can type in their launch arguments to enable the old UI or to stop the download and just play right away.
