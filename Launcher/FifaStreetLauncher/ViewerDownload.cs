@@ -40,8 +40,10 @@ public partial class LauncherForm
             await using (var check = File.OpenRead(zip))
                 actual = Convert.ToHexString(await SHA256.HashDataAsync(check)).ToLowerInvariant();
             if (actual != expected) { BrowserLog("Viewer download rejected: SHA-256 mismatch."); return; }
-            string unpacked = Path.Combine(temp, "Viewer");
-            await Task.Run(() => ZipFile.ExtractToDirectory(zip, unpacked));
+            string extracted = Path.Combine(temp, "extracted");
+            await Task.Run(() => ZipFile.ExtractToDirectory(zip, extracted));
+            // The zip holds a top-level "Viewer" folder (build-viewer.ps1 includes the base directory); accept a flat zip too.
+            string unpacked = File.Exists(Path.Combine(extracted, "Viewer", "ReStreetViewer.exe")) ? Path.Combine(extracted, "Viewer") : extracted;
             if (!File.Exists(Path.Combine(unpacked, "ReStreetViewer.exe"))) { BrowserLog("Viewer download rejected: no ReStreetViewer.exe inside."); return; }
             if (Directory.Exists(viewer)) Directory.Delete(viewer, true);
             Directory.Move(unpacked, viewer);
