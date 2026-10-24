@@ -85,6 +85,7 @@ public partial class LauncherForm
         // Wine/Proton: WebView2 is not reliable there, so the same page opens in the system browser.
         if (RunningOnWine() || Environment.GetEnvironmentVariable("RESTREET_BROWSER_UI") == "1")
         {
+            if (RunningOnWine()) await EnsureViewerAsync();  // first run on Proton: fetch the viewer once
             StartBrowserUi();
             if (browserActive) StartPageServices();
             RevealWindow();
